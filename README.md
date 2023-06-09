@@ -4,11 +4,12 @@
 Personal documentation for postgreSQL
 
 ## Commands
--"\q" : exit
-- "\l" : view list of all databases
-- "\c database" : Connect to database
-- "\du" : database users
-- \d : 
+- `\q` : exit
+- `\l` : view list of all databases (show databases)
+- `\c database` : Connect to database (use db)
+- `\du` : database users
+- `\d` : describe database
+- `\d table` : describe table (desc table)
 
 ## SQL commands
 granting privileges to db user
