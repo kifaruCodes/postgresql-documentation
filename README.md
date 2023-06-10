@@ -14,6 +14,8 @@ Personal documentation for postgreSQL
 - - [drop a table](#drop-table)
 - - [Truncate table](#truncate-table)
 - - [Alter table](#alter-table)
+- - [Insert Data](#alter-table)
+- - [Upsert Data](#upsert-data)
 
 ## **Installation:**
 ([back to table of content](#table-of-content))
@@ -293,7 +295,7 @@ alter table employee rename column birthdate to dob;
 
 Rename a table
 ```sql
-rename table table_name rename to new_table_name;
+alter table table_name rename to new_table_name;
 
 -- example
 alter table employee rename to employee_new;
@@ -314,3 +316,74 @@ alter table table_name alter column column_name drop not null
 -- example
 alter table employee alter column dob drop not null
 ```
+
+add a check constraint to a table and all its children ***(revisit)***:
+```sql
+ALTER TABLE employee ADD CONSTRAINT first_name CHECK (char_length(first_name) > 1);
+```
+
+remove a check constraint from a table and all its children ***(revisit)***:
+```sql
+ALTER TABLE employee DROP CONSTRAINT first_name;
+
+ALTER TABLE ONLY employee DROP CONSTRAINT first_name; -- remove check constraint from one table only
+```
+
+Add primary key to table:
+```sql
+ALTER TABLE employee ADD PRIMARY KEY (id);
+```
+
+move a table to a different tablespace:
+```sql
+ALTER TABLE employee SET TABLESPACE emptablespace;
+```
+
+move a table to a different schema:
+```sql
+ALTER TABLE myschema.employee SET SCHEMA yourschema;
+```
+
+
+## Insert Data
+---
+([back to table of content](#table-of-content))
+
+To insert data to table use the below statement:
+
+```sql
+insert into table_name (col1, col2, col3)
+values
+("value 1", "value 2", "value3");
+
+-- example
+insert into employee 
+(id, first_name, second_name, gender, dob, salaries)
+values
+(1, 'Tony', 'Stark', 'm', DATE '1964-03-10', 100000)
+```
+
+note:
+- use single quotes `'` when inserting strings. double quotes `"` will generate errors
+- Dates are inserted in the `YYYY-MM-DD` format ie `DATE '1995-03-12'`
+- If the table has a `SERIAL` column, Postgres will automatically generate a sequence number for the serial column. No need to specify a value for that column in the INSERT statement.
+- `returning` returns the inserted data after the the insert quert has been executed 
+```sql
+-- returns all values after insertion
+insert into table (col1, col2)
+values
+('col 1', 'col 2')
+returning *;  
+
+-- return specific column after insertion
+insert into table (col1, col2)
+values
+('col 1', 'col 2')
+returning col1; 
+```
+
+## Upsert Data
+---
+([back to table of content](#table-of-content))
+
+`Upsert` is an `Insert`/`update` operation, i.e. It inserts values, however if the data already exists, it is updated.
