@@ -16,6 +16,11 @@ Personal documentation for postgreSQL
 - - [Alter table](#alter-table)
 - - [Insert Data](#alter-table)
 - - [Upsert Data](#upsert-data)
+- - [Update Data](#update-data)
+- - [Delete Data](#delete-data)
+- - [Select Statement](#select-statement)
+- - - [Select Where](#select-where)
+- - - [Select Group By](#select-group-by)
 
 ## **Installation:**
 ([back to table of content](#table-of-content))
@@ -387,3 +392,22 @@ returning col1;
 ([back to table of content](#table-of-content))
 
 `Upsert` is an `Insert`/`update` operation, i.e. It inserts values, however if the data already exists, it is updated.
+
+## Update Data
+---
+([back to table of content](#table-of-content))
+
+
+## Delete Data
+---
+([back to table of content](#table-of-content))
+
+## Select Statement
+---
+([back to table of content](#table-of-content))
+
+### Select Where
+([back to table of content](#table-of-content))
+
+### Select Group by
+([back to table of content](#table-of-content))
