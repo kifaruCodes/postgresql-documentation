@@ -282,3 +282,35 @@ Change data type of a column
 ```sql
 alter table employee alter column type int 
 ```
+
+Rename a column:
+```sql
+alter table table_name rename column old_name to new_name
+
+--- example
+alter table employee rename column birthdate to dob;
+```
+
+Rename a table
+```sql
+rename table table_name rename to new_table_name;
+
+-- example
+alter table employee rename to employee_new;
+```
+
+Add a `not null` constraint to a column:
+```sql
+alter table table_name alter column column_name set not null
+
+-- example
+alter table employee alter column dob set not null
+```
+
+remove/drop `not null` constraint
+```sql
+alter table table_name alter column column_name drop not null
+
+-- example
+alter table employee alter column dob drop not null
+```
