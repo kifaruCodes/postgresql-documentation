@@ -16,6 +16,9 @@ Personal documentation for postgreSQL
 - - [Alter table](#alter-table)
 - - [Insert Data](#alter-table)
 - - [Upsert Data](#upsert-data)
+- - - [on conflict do nothing](#on-conflict-do-nothing)
+- - - [on conflict do update](#on-conflict-do-update)
+- - - [on conflict where](#on-conflict-where)
 - - [Update Data](#update-data)
 - - [Delete Data](#delete-data)
 - - [Select Statement](#select-statement)
@@ -392,6 +395,48 @@ returning col1;
 ([back to table of content](#table-of-content))
 
 `Upsert` is an `Insert`/`update` operation, i.e. It inserts values, however if the data already exists, it is updated.
+
+The `upsert` operation is implemented with the `on conflict` clause i.e. if there is conflict, do something.
+
+eg you have the below table:
+```sql
+CREATE TABLE employee (
+    emp_id 	INT PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    gender CHAR(1),
+    birthdate DATE,
+    email VARCHAR(100) UNIQUE,
+    salary INT
+);
+```
+
+
+
+Insert data
+```sql
+INSERT INTO employee
+VALUES
+(1,'Annie','Smith','F', DATE '1988-01-09', 'ani@email.com',5000)
+returning *;
+```
+
+rerunning the same command above returns an error since we have a column with a `primary id`, and we can not repeat the same data.
+
+
+### **on conflict do nothing**
+```sql
+INSERT INTO employee
+VALUES
+(1,'Annie','Smith','F', DATE '1988-01-09', 'ani@email.com',5000)
+on conflict do nothing;
+```
+
+### **on conflict do update**
+
+
+### **on conflict where**
+
 
 ## Update Data
 ---
