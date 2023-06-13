@@ -14,7 +14,7 @@ Personal documentation for postgreSQL
 - - [drop a table](#drop-table)
 - - [Truncate table](#truncate-table)
 - - [Alter table](#alter-table)
-- - [Insert Data](#alter-table)
+- - [Insert Data](#insert-data)
 - - [Upsert Data](#upsert-data)
 - - - [on conflict do nothing](#on-conflict-do-nothing)
 - - - [on conflict do update](#on-conflict-do-update)
@@ -42,9 +42,26 @@ Windows :
 - `\l` : view list of all databases (show databases)
 - `\c database` : Connect to database (use db)
 - `\du` : database users ie list all roles
-- `\d` `\dt` : show tables
+- `\d` : shows table relations
+-`\dt` : show tables only
 - `\d table` : describe table (desc table)
 - `\dt table` : show table details
+
+
+## **Data Types**
+Here are some common data types. A full list can be accessed from the documentation here: https://www.postgresql.org/docs/current/datatype.html
+
+- int
+- varchar
+- date
+- timestamp
+- bigint
+- bigserial
+- char
+- boolean
+- json
+- serial (autoincrementing 4-byte int)
+
 
 ## **SQL commands**
 ([back to table of content](#table-of-content))
