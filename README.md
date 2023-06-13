@@ -38,14 +38,16 @@ Windows :
 
 ## **PSQL Commands**
 ([back to table of content](#table-of-content))
+- `\?` : list all commands
 - `\q` : exit
 - `\l` : view list of all databases (show databases)
 - `\c database` : Connect to database (use db)
 - `\du` : database users ie list all roles
-- `\d` : shows table relations
--`\dt` : show tables only
+- `\d` : shows table relations (show tables relations)
+- `\dt` : show tables only (show tables)
 - `\d table` : describe table (desc table)
 - `\dt table` : show table details
+- `\i file` : execute commands from a file
 
 
 ## **Data Types**
@@ -104,25 +106,26 @@ Create a table (eg person)
 ---
 ([back to table of content](#table-of-content))
 
-Create table in database
+Create table in database (without constraints)
 ```sql
 CREATE TABLE person(
     id int,
     fname VARCHAR(100),
     lname VARCHAR(100),
-    date_of_birth TIMESTAMP,
+    date_of_birth DATE,
 )
 ```
-another example:
+create table (with constraints):
 ```sql
 create table if not exists person(
-    id int primary key,
+    id bigserial not null primary key,
     fname varchar(100) not null,
     lname varchar(100) not null,
-    birthdate date,
+    dob date,
     email varchar(50) unique
 );
 ```
+***Note : bigserial is an autoincrementing datatype (signed int)***
 
 Create table from another table:
 ```sql
@@ -381,11 +384,27 @@ insert into table_name (col1, col2, col3)
 values
 ("value 1", "value 2", "value3");
 
--- example
+-- example 1
 insert into employee 
 (id, first_name, second_name, gender, dob, salaries)
 values
 (1, 'Tony', 'Stark', 'm', DATE '1964-03-10', 100000)
+
+-- example 2
+-- this example has a datatype "int" of bigserial which is an autoincrementing datatype, hence no need to include the id column here
+insert into person (
+    first_name,
+    last_name,
+    gender, 
+    date_of_birth,
+    email)
+    values
+    (
+        'Bruce',
+        'Wayne',
+        'male',
+        date '1960-12-31'
+    );
 ```
 
 note:
@@ -468,8 +487,41 @@ on conflict do nothing;
 ---
 ([back to table of content](#table-of-content))
 
+Show display data from the table. Here are some examples.
+```sql
+-- show all data
+select * from table;
+
+-- show specific columns
+select (col1, col2) from table;
+
+-- select in particular order
+-- ascending order
+select * from table order by col_1 asc;
+-- descending order
+select * from table order by col_1 desc;
+se
+```
+
+To show how many duplicates are in a column use the `DISTINCT ` statement.
+```sql
+select distinct country from people;
+```
+
 ### Select Where
 ([back to table of content](#table-of-content))
+
+Here we filter data based on conditions
+```sql
+select * from table where col = 'condition';
+
+-- eg
+select * from people where gender = 'Female';
+
+select * from people where gender = 'Male' and country = 'Kenya';
+
+select * from people where fname = 'Max' or fname = 'Kamau'
+```
 
 ### Select Group by
 ([back to table of content](#table-of-content))
